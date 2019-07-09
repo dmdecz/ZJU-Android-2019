@@ -5,7 +5,7 @@
 ### Chapter-1
 This project uses textView, ratingBar, progressBar, button and imageView.
 
-### Chapter-1
+### Chapter-2
 
 1. 完成基本RecyclerView的使用；
 2. 增加decoration；
