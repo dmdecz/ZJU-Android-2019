@@ -8,4 +8,6 @@
     <color name="no_common">#99ffffff</color>
     <color name="title">#e6ffffff</color>
     <color name="hot_value">#7fffffff</color>
+    <color name="hot_value_up">#ffff0000</color>
+    <color name="hot_value_down">#ff00ff00</color>
 </resources>

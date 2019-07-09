@@ -23,8 +23,6 @@ public class MainActivity extends AppCompatActivity {
 	private Runnable randomUpdateHotValue = new Runnable() {
 		@Override
 		public void run() {
-			mAdapter.randomlyUpdateHotValue();
-			mRefreshView = findViewById(R.id.tv_refresh);
 			Calendar cal = Calendar.getInstance();
 			int hour;
 			if (cal.get(Calendar.AM_PM) == Calendar.AM) {
@@ -32,7 +30,15 @@ public class MainActivity extends AppCompatActivity {
 			} else {
 				hour = cal.get(Calendar.HOUR) + 12;
 			}
-			mRefreshView.setText("更新于：" + String.format("%02d:%02d:%02d", hour, cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND)));
+
+			String currentTime = String.format("%02d:%02d:%02d", hour, cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
+
+			mAdapter.randomlyCreateNewHot(currentTime);
+			mAdapter.randomlyUpdateHotValue();
+			mAdapter.notifyDataSetChanged();
+			mRefreshView = findViewById(R.id.tv_refresh);
+
+			mRefreshView.setText("更新于：" + currentTime);
 			handler.postDelayed(this, 3000);
 		}
 	};
@@ -53,6 +59,6 @@ public class MainActivity extends AppCompatActivity {
 		}
 		mAdapter.setRecordList(mRecordList);
 
-		handler.post(randomUpdateHotValue);
+		handler.postDelayed(randomUpdateHotValue, 3000);
 	}
 }
