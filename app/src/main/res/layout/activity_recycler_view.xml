@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:background="@color/background" >
+
+		<TextView
+			android:id="@+id/tv_refresh"
+			android:layout_width="wrap_content"
+			android:layout_height="match_parent"
+			android:background="@color/background"
+			android:gravity="center_vertical"
+			android:text="更新于："
+			android:textColor="@color/hot_value"
+			android:textSize="13sp"
+			tools:ignore="RtlHardcoded" />
+
+	</LinearLayout>
+
+	<androidx.recyclerview.widget.RecyclerView
+		android:id="@+id/rv_list"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent" />
+
+
+</LinearLayout>
