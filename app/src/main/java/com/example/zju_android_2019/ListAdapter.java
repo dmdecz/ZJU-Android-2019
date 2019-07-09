@@ -1,5 +1,6 @@
 package com.example.zju_android_2019;
 
+import android.util.Log;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListViewHolder> {
 		Collections.sort(mRecordList, Collections.reverseOrder());
 		for (int i = 0; i < mRecordList.size(); i++) {
 			mRecordList.get(i).setRank(i + 1);
+			mRecordList.get(i).updateOnce();
 		}
-		notifyDataSetChanged();
+	}
+
+	public void randomlyCreateNewHot(String text) {
+		Random random = new Random(System.currentTimeMillis());
+		if (random.nextInt(3) != 0) {
+			return;
+		}
+		Record newRecord = mRecordList.get(mRecordList.size()-1);
+		newRecord.setHotValue(100);
+		newRecord.setText(text);
+		newRecord.setNew(3);
 	}
 }

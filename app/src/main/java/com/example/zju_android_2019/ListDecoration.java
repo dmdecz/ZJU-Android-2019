@@ -11,7 +11,7 @@ public class ListDecoration extends RecyclerView.ItemDecoration {
 	@Override
 	public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
 		super.getItemOffsets(outRect, view, parent, state);
-		outRect.set(0, 0, 0, 1);
+		outRect.set(0, 1, 0, 1);
 	}
 
 }
