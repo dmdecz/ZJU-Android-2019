@@ -1,10 +1,3 @@
 <resources>
-    <string name="app_name">Exp1</string>
-	<string name="button">Button</string>
-	<string name="comments">Comments</string>
-	<string name="submit">submit</string>
-	<string name="pictures">Pictures</string>
-	<string name="rating">Rating</string>
-	<string name="add_your_comment">Add Your Comment</string>
-	<string name="pictures_click_to_switch">pictures (click to switch)</string>
+    <string name="app_name">ZJU_Android_2019</string>
 </resources>
