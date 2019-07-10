@@ -1,64 +1,60 @@
 package com.example.zju_android_2019;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import com.google.android.material.tabs.TabLayout;
+
 
 public class MainActivity extends AppCompatActivity {
 
-	private RecyclerView mListView;
-	private ListAdapter mAdapter;
-	private TextView mRefreshView;
-	private List<Record> mRecordList = new ArrayList<>();
-
-	private Handler handler = new Handler();
-	private Runnable randomUpdateHotValue = new Runnable() {
-		@Override
-		public void run() {
-			Calendar cal = Calendar.getInstance();
-			int hour;
-			if (cal.get(Calendar.AM_PM) == Calendar.AM) {
-				hour = cal.get(Calendar.HOUR);
-			} else {
-				hour = cal.get(Calendar.HOUR) + 12;
-			}
-
-			String currentTime = String.format("%02d:%02d:%02d", hour, cal.get(Calendar.MINUTE), cal.get(Calendar.SECOND));
-
-			mAdapter.randomlyCreateNewHot(currentTime);
-			mAdapter.randomlyUpdateHotValue();
-			mAdapter.notifyDataSetChanged();
-			mRefreshView = findViewById(R.id.tv_refresh);
-
-			mRefreshView.setText("更新于：" + currentTime);
-			handler.postDelayed(this, 3000);
-		}
-	};
+	private static final int PAGE_COUNT = 3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_recycler_view);
+		setContentView(R.layout.activity_main);
 
-		mListView = findViewById(R.id.rv_list);
-		mAdapter = new ListAdapter();
-		mListView.setAdapter(mAdapter);
-		mListView.addItemDecoration(new ListDecoration());
-		mListView.setLayoutManager(new LinearLayoutManager(this));
+		ViewPager pager = findViewById(R.id.view_pager);
+		TabLayout tabLayout = findViewById(R.id.tab_layout);
+		pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+			@Override
+			public Fragment getItem(int i) {
+				switch (i) {
+					case 0:
+						return new AnimatorFragment();
+					case 1:
+						return new LottieFragment();
+					case 2:
+						return new FriendListFragment();
+					default:
+						return new AnimatorFragment();
+				}
+			}
 
-		for (int i = 0; i < 100; i++) {
-			mRecordList.add(new Record(i+1, i+"", 100 - i));
-		}
-		mAdapter.setRecordList(mRecordList);
+			@Override
+			public int getCount() {
+				return PAGE_COUNT;
+			}
 
-		handler.postDelayed(randomUpdateHotValue, 3000);
+			@Override
+			public CharSequence getPageTitle(int position) {
+				switch (position) {
+					case 0:
+						return "Animator";
+					case 1:
+						return "Lottie";
+					case 2:
+						return "Friends";
+					default:
+						return "Animator";
+				}
+			}
+		});
+		tabLayout.setupWithViewPager(pager);
 	}
 }
