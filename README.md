@@ -17,3 +17,7 @@ This project uses textView, ratingBar, progressBar, button and imageView.
 ### Chapter-3
 
 完成ex-1，ex-2，ex-3
+
+### Chapter-4
+
+如要求完成clock
