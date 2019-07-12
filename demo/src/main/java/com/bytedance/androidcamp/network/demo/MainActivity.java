@@ -1,7 +1,10 @@
 package com.bytedance.androidcamp.network.demo;
 
+import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,6 +14,8 @@ import com.bytedance.androidcamp.network.demo.newtork.ICatService;
 import com.bytedance.androidcamp.network.demo.utils.NetworkUtils;
 import com.bytedance.androidcamp.network.lib.util.ImageHelper;
 import com.google.gson.Gson;
+
+import java.io.IOException;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -58,24 +63,60 @@ public class MainActivity extends AppCompatActivity {
         ImageHelper.displayWebImage(url, ivOut);
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void testHttpURLConnectionSync(View view) {
-        // TODO 4: Fix crash of NetworkOnMainThreadException
-        String s = NetworkUtils.getResponseWithHttpURLConnection(ICatService.HOST + ICatService.PATH);
-        tvOut.setText(s);
+        new AsyncTask<String, Integer, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                return NetworkUtils.getResponseWithHttpURLConnection(ICatService.HOST + ICatService.PATH);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                tvOut.setText(s);
+            }
+        }.execute();
     }
 
-    public void testRetrofitSync(View view) throws Exception {
-        // TODO 5: Making request in retrofit
-        Cat cat = null;
-        tvOut.setText(cat.toString());
+    @SuppressLint("StaticFieldLeak")
+    public void testRetrofitSync(View view) {
+        new AsyncTask<String, Integer, Cat>() {
+            @Override
+            protected Cat doInBackground(String... strings) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(ICatService.HOST)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                ICatService catService = retrofit.create(ICatService.class);
+                Response response;
+                try {
+                    response = catService.randomCat(3).execute();
+                } catch (IOException e) {
+                    return null;
+                }
+                List<Cat> catList = response == null ? null : (List<Cat>) response.body();
+                return catList == null ? null : catList.get(0);
+            }
+
+            @Override
+            protected void onPostExecute(Cat cat) {
+                super.onPostExecute(cat);
+                tvOut.setText(cat.toString());
+            }
+        }.execute();
     }
 
     public void testUpdateUI(View view) {
-        // TODO 6: Fix crash of CalledFromWrongThreadException
         new Thread() {
             @Override public void run() {
                 final String s = NetworkUtils.getResponseWithHttpURLConnection(ICatService.HOST + ICatService.PATH);
-                tvOut.setText(s);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        tvOut.setText(s);
+                    }
+                });
             }
         }.start();
     }
