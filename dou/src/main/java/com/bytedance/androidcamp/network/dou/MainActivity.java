@@ -15,7 +15,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bytedance.androidcamp.network.dou.api.GetVideoResponse;
 import com.bytedance.androidcamp.network.dou.api.IMiniDouyinService;
+import com.bytedance.androidcamp.network.dou.api.PostVideoResponse;
 import com.bytedance.androidcamp.network.dou.model.Video;
 import com.bytedance.androidcamp.network.lib.util.ImageHelper;
 import com.bytedance.androidcamp.network.dou.util.ResourceUtils;
@@ -25,7 +28,11 @@ import java.util.List;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,9 +46,11 @@ public class MainActivity extends AppCompatActivity {
     public Button mBtn;
     private Button mBtnRefresh;
 
-    // TODO 8: initialize retrofit & miniDouyinService
-    private Retrofit retrofit;
-    private IMiniDouyinService miniDouyinService;
+    private Retrofit retrofit = new Retrofit.Builder()
+            .baseUrl(IMiniDouyinService.HOST)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build();
+    private IMiniDouyinService miniDouyinService = retrofit.create(IMiniDouyinService.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,13 +184,44 @@ public class MainActivity extends AppCompatActivity {
         MultipartBody.Part coverImagePart = getMultipartFromUri("cover_image", mSelectedImage);
         MultipartBody.Part videoPart = getMultipartFromUri("video", mSelectedVideo);
         // TODO 9: post video & update buttons
-        Toast.makeText(this, "TODO 9: post video & update buttons", Toast.LENGTH_SHORT).show();
+        Call<PostVideoResponse> call = miniDouyinService.postVideo("3170101214", "cz",
+                coverImagePart, videoPart);
+        call.enqueue(new Callback<PostVideoResponse>() {
+            @Override
+            public void onResponse(Call<PostVideoResponse> call, Response<PostVideoResponse> response) {
+                mBtn.setText("select an image");
+                mBtn.setEnabled(true);
+                Toast.makeText(MainActivity.this, "upload success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<PostVideoResponse> call, Throwable throwable) {
+
+            }
+        });
     }
 
     public void fetchFeed(View view) {
         mBtnRefresh.setText("requesting...");
         mBtnRefresh.setEnabled(false);
-        // TODO 10: get videos & update recycler list
-        Toast.makeText(this, "TODO 10: get videos & update recycler list", Toast.LENGTH_SHORT).show();
+        Call<GetVideoResponse> call = miniDouyinService.getVideos();
+        call.enqueue(new Callback<GetVideoResponse>() {
+            @Override
+            public void onResponse(Call<GetVideoResponse> call, Response<GetVideoResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    mVideos = response.body().getVideos();
+                    mRv.getAdapter().notifyDataSetChanged();
+                }
+                mBtnRefresh.setText("refresh feed");
+                mBtnRefresh.setEnabled(true);
+                Toast.makeText(MainActivity.this, "refresh success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<GetVideoResponse> call, Throwable throwable) {
+
+            }
+        });
     }
+
 }
