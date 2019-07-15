@@ -12,4 +12,6 @@
 	<string name="priority_medium">priority_medium</string>
 	<string name="priority_high">priority_high</string>
 	<string name="confirm">confirm</string>
+	<string name="action_settings">settings</string>
+	<string name="action_debug">debug</string>
 </resources>

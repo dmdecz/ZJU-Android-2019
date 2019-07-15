@@ -1,36 +1,31 @@
 package com.example.zju_android_2019;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.ContentValues;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
-import androidx.viewpager.widget.ViewPager;
 
 import com.example.zju_android_2019.db.Note;
 import com.example.zju_android_2019.db.NoteDatabase;
 import com.example.zju_android_2019.ui.NoteListAdapter;
 import com.example.zju_android_2019.ui.NoteOperator;
-import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.tabs.TabLayout;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
 
-	private AppBarLayout mAppBar;
+//	private Toolbar mToolBar;
 	private RecyclerView mRecyclerView;
 	private NoteListAdapter mNoteListAdapter;
 	private FloatingActionButton mAddButton;
@@ -53,6 +48,28 @@ public class MainActivity extends AppCompatActivity {
 				.addMigrations(NoteDatabase.ALL_MIGRATIONS).build();
 
 		initUI();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		switch (id) {
+			case R.id.action_settings:
+				return true;
+			case R.id.action_debug:
+				DebugActivity.launch(this);
+				return true;
+			default:
+				break;
+		}
+
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void initUI() {
