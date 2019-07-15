@@ -71,6 +71,7 @@ public class AddNoteActivity extends AppCompatActivity {
 				String content = mEditText.getText().toString();
 				if (content.isEmpty()) {
 					Toast.makeText(AddNoteActivity.this, "Please add content.", Toast.LENGTH_SHORT).show();
+					mAddBtn.setClickable(true);
 					return;
 				}
 				Note note = new Note();
