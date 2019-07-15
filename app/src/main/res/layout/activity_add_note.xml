@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical"
+	android:padding="12dp">
+
+	<EditText
+		android:id="@+id/add_note_edit_text"
+		android:layout_width="match_parent"
+		android:layout_height="120dp"
+		android:background="@drawable/bg_edit"
+		android:gravity="start|top"
+		android:padding="4dp"
+		android:textColor="#1e1e1e" />
+
+	<RadioGroup
+		android:id="@+id/add_note_radio_group"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp">
+
+		<RadioButton
+			android:id="@+id/add_note_rbtn_high"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/priority_high" />
+
+		<RadioButton
+			android:id="@+id/add_note_rbtn_medium"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/priority_medium" />
+
+		<RadioButton
+			android:id="@+id/add_note_rbtn_low"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/priority_low" />
+
+	</RadioGroup>
+
+	<Button
+		android:id="@+id/add_note_btn_add"
+		android:layout_width="match_parent"
+		android:layout_height="60dp"
+		android:layout_marginTop="20dp"
+		android:text="@string/confirm" />
+
+</LinearLayout>

@@ -1,18 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical">
 
-	<com.google.android.material.tabs.TabLayout
-		android:id="@+id/tab_layout"
+	<com.google.android.material.appbar.AppBarLayout
 		android:layout_width="match_parent"
-		android:layout_height="40dp" />
+		android:layout_height="wrap_content"
+		android:theme="@style/AppTheme.AppBarOverlay">
 
-	<androidx.viewpager.widget.ViewPager
-		android:id="@+id/view_pager"
+		<androidx.appcompat.widget.Toolbar
+			android:layout_width="match_parent"
+			android:layout_height="?attr/actionBarSize" />
+
+	</com.google.android.material.appbar.AppBarLayout>
+
+	<FrameLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+		android:layout_height="match_parent">
+
+		<androidx.recyclerview.widget.RecyclerView
+			android:id="@+id/main_rv_note"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent" />
+
+		<com.google.android.material.floatingactionbutton.FloatingActionButton
+			android:id="@+id/main_fab_add"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|right"
+			android:layout_margin="16dp"
+			tools:ignore="RtlHardcoded"
+			app:srcCompat="@drawable/ic_add_white_24dp" />
+
+	</FrameLayout>
+
 
 </LinearLayout>
