@@ -8,4 +8,8 @@
 	<string name="ex3">ch3ex3</string>
 
 	<string name="hello_blank_fragment">Hello blank fragment</string>
+	<string name="priority_low">priority_low</string>
+	<string name="priority_medium">priority_medium</string>
+	<string name="priority_high">priority_high</string>
+	<string name="confirm">confirm</string>
 </resources>
