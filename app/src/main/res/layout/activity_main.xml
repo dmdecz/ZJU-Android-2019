@@ -7,25 +7,19 @@
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	android:orientation="vertical">
 
-	<FrameLayout
+	<Button
+		android:id="@+id/main_btn_glide_image"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent">
+		android:layout_height="wrap_content"
+		android:textAllCaps="false"
+		android:text="Glide Image" />
 
-		<androidx.recyclerview.widget.RecyclerView
-			android:id="@+id/main_rv_note"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent" />
-
-		<com.google.android.material.floatingactionbutton.FloatingActionButton
-			android:id="@+id/main_fab_add"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_gravity="bottom|right"
-			android:layout_margin="16dp"
-			tools:ignore="RtlHardcoded"
-			app:srcCompat="@drawable/ic_add_white_24dp" />
-
-	</FrameLayout>
+	<Button
+		android:id="@+id/main_btn_ijk_player"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textAllCaps="false"
+		android:text="IJKPlayer" />
 
 
 </LinearLayout>
