@@ -3,7 +3,15 @@
 	xmlns:tools="http://schemas.android.com/tools"
 	package="com.example.zju_android_2019" >
 
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-feature android:name="android.hardware.camera" />
+	<!--相机权限-->
+	<uses-permission android:name="android.permission.CAMERA" />
+	<!--写入SD卡的权限：如果你希望保存相机拍照后的照片-->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<!--读取SD卡的权限:打开相册选取图片所必须的权限-->
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.RECORD_AUDIO"/>
 
 	<application
 		android:allowBackup="true"
@@ -21,8 +29,8 @@
 			</intent-filter>
 		</activity>
 
-		<activity android:name=".AddNoteActivity" />
-		<activity android:name=".DebugActivity" />
+		<activity android:name=".GlideImage.GlideImageActivity" />
+		<activity android:name=".IJKPlayerActivity" android:configChanges="keyboardHidden|orientation|screenSize" />
 
 	</application>
 

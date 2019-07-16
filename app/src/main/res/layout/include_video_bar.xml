@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.jaygoo.widget.VerticalRangeSeekBar
+        android:id="@+id/video_bar_sb_volume"
+        android:layout_width="20dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        android:layout_marginStart="501.5dp"
+        android:background="#c99f9e9e"
+        app:rsb_gravity="center"
+        app:rsb_mode="single"
+        app:rsb_thumb_height="10dp"
+        app:rsb_thumb_width="10dp" />
+
+    <RelativeLayout
+        android:background="#c99f9e9e"
+        android:id="@+id/video_bar_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+	    android:layout_alignParentBottom="true"
+        android:layout_below="@+id/video_bar_sb_volume" >
+
+        <Button
+            android:id="@+id/video_bar_btn_play"
+            style="?android:attr/borderlessButtonStyle"
+            android:text="@string/pause"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/video_bar_tv_time"
+            android:text="00:00/00:00"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/video_bar_btn_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"  />
+
+        <SeekBar
+            android:id="@+id/video_bar_seekBar"
+            android:layout_toRightOf="@+id/video_bar_tv_time"
+            android:layout_toLeftOf="@+id/video_bar_btn_volume"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <Button
+            android:id="@+id/video_bar_btn_volume"
+            style="?android:attr/borderlessButtonStyle"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/video_bar_btn_setting"
+            android:text="@string/volume" />
+
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/video_bar_btn_setting"
+            android:text="@string/smallScreen"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/video_bar_btn_stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            style="?android:attr/borderlessButtonStyle"
+            android:id="@+id/video_bar_btn_stop"
+            android:text="@string/stop"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>
